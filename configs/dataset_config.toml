@@ -1,0 +1,16 @@
+[[datasets]]
+
+[[datasets.subsets]]
+num_repeats = 10
+image_dir = "images"
+
+[general]
+resolution = 512
+shuffle_caption = true
+keep_tokens = 1
+flip_aug = true
+caption_extension = ".txt"
+bucket_reso_steps = 64
+bucket_no_upscale = false
+min_bucket_reso = 320
+max_bucket_reso = 1024

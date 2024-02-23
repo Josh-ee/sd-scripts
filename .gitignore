@@ -6,3 +6,4 @@ venv
 build
 .vscode
 wandb
+sd-v1-5-pruned-noema-fp16.safetensors

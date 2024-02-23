@@ -1,0 +1,25 @@
+[additional_network_arguments]
+unet_lr = 0.0005
+text_encoder_lr = 0.0001
+network_dim = 16
+network_alpha = 8
+network_module = "networks.lora"
+network_train_unet_only = true
+
+[optimizer_arguments]
+learning_rate = 0.0005
+lr_scheduler = "cosine_with_restarts"
+lr_scheduler_num_cycles = 3
+lr_warmup_steps = 500
+optimizer_type = "AdamW"
+
+[training_arguments]
+max_train_epochs = 10
+save_every_n_epochs = 1
+save_last_n_epochs = 10
+train_batch_size = 2
+output_dir = "output"
+logging_dir = "logs"
+
+[model_arguments]
+pretrained_model_name_or_path = "sd-v1-5-pruned-noema-fp16.safetensors"
