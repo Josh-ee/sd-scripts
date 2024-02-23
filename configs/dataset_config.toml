@@ -10,6 +10,7 @@ shuffle_caption = true
 keep_tokens = 1
 flip_aug = true
 caption_extension = ".txt"
+enable_bucket = true
 bucket_reso_steps = 64
 bucket_no_upscale = false
 min_bucket_reso = 320
