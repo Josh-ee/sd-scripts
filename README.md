@@ -1,3 +1,14 @@
+
+For my team:
+1. pip install -r requirements.txt
+2. python3 run.py (note the first time you run this it will take 5 min to download the model)
+
+
+
+
+
+
+
 __SDXL is now supported. The sdxl branch has been merged into the main branch. If you update the repository, please follow the upgrade instructions. Also, the version of accelerate has been updated, so please run accelerate config again.__ The documentation for SDXL training is [here](./README.md#sdxl-training).
 
 This repository contains training, generation and utility scripts for Stable Diffusion.
