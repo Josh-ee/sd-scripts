@@ -1,7 +1,9 @@
 
 For my team:
 1. pip install -r requirements.txt
-2. python3 run.py (note the first time you run this it will take 5 min to download the model)
+2. upload your images under /images (make sure they are 512x512)
+
+3. python3 run.py (note the first time you run this it will take 5 min to download the model)
 
 
 
