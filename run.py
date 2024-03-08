@@ -2,11 +2,14 @@ import subprocess
 import os
 import json
 import toml
-
-
-
-
 import requests
+
+"""
+to plot the logs, paste below into terminal:
+tensorboard --logdir=logs --port=6006
+"""
+
+
 
 model_url = "https://huggingface.co/hollowstrawberry/stable-diffusion-guide/resolve/main/models/sd-v1-5-pruned-noema-fp16.safetensors"
 model_filename = os.path.basename(model_url)
