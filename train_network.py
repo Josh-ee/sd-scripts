@@ -10,7 +10,11 @@ import json
 from multiprocessing import Value
 import toml
 
+crt_path = os.getcwd()
+print(crt_path)
 import dataloader
+print(os.getcwd())
+sys.path.append(crt_path)
 
 from tqdm import tqdm
 import torch
