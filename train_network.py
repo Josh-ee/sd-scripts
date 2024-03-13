@@ -10,6 +10,8 @@ import json
 from multiprocessing import Value
 import toml
 
+import dataloader
+
 from tqdm import tqdm
 import torch
 from torch.nn.parallel import DistributedDataParallel as DDP
@@ -356,6 +358,29 @@ class NetworkTrainer:
             num_workers=n_workers,
             persistent_workers=args.persistent_data_loader_workers,
         )
+        
+        # ##### Mod starts here
+        # ### load dataloader from SuperBench
+        # ### format as below:
+        # # dataloader = DataLoader(dataset,
+        # #             batch_size = int(args.batch_size),
+        # #             num_workers = 4, 
+        # #             shuffle = (train == True),  
+        # #             sampler = None,
+        # #             drop_last = False,
+        # #             pin_memory = torch.cuda.is_available())
+        # superbench_data = dataloader.get_train_loader().dataset
+        # train_dataloader = torch.utils.data.DataLoader(
+        #     superbench_data,
+        #     batch_size=1,
+        #     shuffle=True,
+        #     collate_fn=collator,
+        #     num_workers=n_workers,
+        #     persistent_workers=args.persistent_data_loader_workers,
+        #     drop_last=False,
+        #     pin_memory=torch.cuda.is_available()
+        # )
+        # ##### Mod ends here
 
         # 学習ステップ数を計算する
         if args.max_train_epochs is not None:
