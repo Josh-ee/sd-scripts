@@ -11,9 +11,7 @@ from multiprocessing import Value
 import toml
 
 crt_path = os.getcwd()
-print(crt_path)
-import dataloader
-print(os.getcwd())
+import superbenchdataloader
 sys.path.append(crt_path)
 
 from tqdm import tqdm
@@ -354,6 +352,41 @@ class NetworkTrainer:
         # DataLoaderのプロセス数：0はメインプロセスになる
         n_workers = min(args.max_data_loader_n_workers, os.cpu_count() - 1)  # cpu_count-1 ただし最大で指定された数まで
 
+
+        ### ! testing shape00
+        def inspect_dataloader_generic(dataloader):
+            # Fetch a single batch from the dataloader
+            batch = next(iter(dataloader))
+
+            # Check if the batch is a dict
+            if isinstance(batch, dict):
+                for key, value in batch.items():
+                    print(f"Key: {key}")
+                    if isinstance(value, torch.Tensor):
+                        print(f"  Tensor shape: {value.shape}")
+                    else:
+                        print(f"  Type: {type(value)}")
+            # Check if the batch is a list or tuple
+            elif isinstance(batch, (list, tuple)):
+                for i, item in enumerate(batch):
+                    print(f"Item {i}:")
+                    if isinstance(item, torch.Tensor):
+                        print(f"  Tensor shape: {item.shape}")
+                    else:
+                        print(f"  Type: {type(item)}")
+            # Otherwise, handle single tensor or other types
+            else:
+                print("Batch Type:", type(batch))
+                if isinstance(batch, torch.Tensor):
+                    print("Batch Tensor Shape:", batch.shape)
+            print("------------^one dataloader^-----------")
+        ### !
+
+
+
+
+
+
         train_dataloader = torch.utils.data.DataLoader(
             train_dataset_group,
             batch_size=1,
@@ -362,6 +395,8 @@ class NetworkTrainer:
             num_workers=n_workers,
             persistent_workers=args.persistent_data_loader_workers,
         )
+        
+        inspect_dataloader_generic(train_dataloader)
         
         # ##### Mod starts here
         # ### load dataloader from SuperBench
@@ -373,7 +408,7 @@ class NetworkTrainer:
         # #             sampler = None,
         # #             drop_last = False,
         # #             pin_memory = torch.cuda.is_available())
-        # superbench_data = dataloader.get_train_loader().dataset
+        # superbench_data = superbenchdataloader.get_train_loader().dataset
         # train_dataloader = torch.utils.data.DataLoader(
         #     superbench_data,
         #     batch_size=1,
@@ -385,6 +420,30 @@ class NetworkTrainer:
         #     pin_memory=torch.cuda.is_available()
         # )
         # ##### Mod ends here
+        
+        train_dataloader = superbenchdataloader.get_train_loader()
+        # Assuming train_dataloader is your DataLoader object
+        inspect_dataloader_generic(train_dataloader)
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
         # 学習ステップ数を計算する
         if args.max_train_epochs is not None:
