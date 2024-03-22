@@ -18,7 +18,7 @@ class DefaultArgs:
     model = 'subpixelCNN'
     epochs = 300
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    batch_size = 64
+    batch_size = 16
     lr = 0.0001
     wd = 1e-6
     seed = 5544

@@ -47,6 +47,25 @@ from library.custom_train_functions import (
 )
 
 
+def custom_collate_fn(batch):
+    # Initialize an empty dict to hold the reformatted batch
+    batch_dict = {
+        'images': [],
+        # Add placeholders for any keys you expect to populate but are not present in the second DataLoader
+        # 'latents': [],  # Example: if you were generating latents in the DataLoader, which is not the case here.
+    }
+
+    # Iterate through the unpacked batch items and populate the batch_dict
+    for items in batch:
+        # Assuming the first item is analogous to 'images' based on your data structure
+        batch_dict['images'].append(items[1])  # Item 1 corresponds to 'images'
+    
+    # Stack the lists of tensors to create batch tensors
+    batch_dict['images'] = torch.stack(batch_dict['images'])
+
+    return batch_dict
+
+
 class NetworkTrainer:
     def __init__(self):
         self.vae_scale_factor = 0.18215
@@ -119,6 +138,8 @@ class NetworkTrainer:
             t_enc.to(accelerator.device, dtype=weight_dtype)
 
     def get_text_cond(self, args, accelerator, batch, tokenizers, text_encoders, weight_dtype):
+        # input_ids = batch["input_ids"].to(accelerator.device)
+        batch["input_ids"] = train_util.get_input_ids("")
         input_ids = batch["input_ids"].to(accelerator.device)
         encoder_hidden_states = train_util.get_hidden_states(args, input_ids, tokenizers[0], text_encoders[0], weight_dtype)
         return encoder_hidden_states
@@ -423,7 +444,7 @@ class NetworkTrainer:
         
         train_dataloader = superbenchdataloader.get_train_loader()
         # Assuming train_dataloader is your DataLoader object
-        inspect_dataloader_generic(train_dataloader)
+        # inspect_dataloader_generic(train_dataloader)
 
         
         
@@ -854,15 +875,15 @@ class NetworkTrainer:
                         latents = latents * self.vae_scale_factor
 
                     # get multiplier for each sample
-                    if network_has_multiplier:
-                        multipliers = batch["network_multipliers"]
-                        # if all multipliers are same, use single multiplier
-                        if torch.all(multipliers == multipliers[0]):
-                            multipliers = multipliers[0].item()
-                        else:
-                            raise NotImplementedError("multipliers for each sample is not supported yet")
-                        # print(f"set multiplier: {multipliers}")
-                        accelerator.unwrap_model(network).set_multiplier(multipliers)
+                    # if network_has_multiplier:
+                    #     multipliers = batch["network_multipliers"]
+                    #     # if all multipliers are same, use single multiplier
+                    #     if torch.all(multipliers == multipliers[0]):
+                    #         multipliers = multipliers[0].item()
+                    #     else:
+                    #         raise NotImplementedError("multipliers for each sample is not supported yet")
+                    #     # print(f"set multiplier: {multipliers}")
+                    #     accelerator.unwrap_model(network).set_multiplier(multipliers)
 
                     with torch.set_grad_enabled(train_text_encoder), accelerator.autocast():
                         # Get the text embedding for conditioning

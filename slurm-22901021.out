@@ -1,0 +1,157 @@
+<superbenchdataloader.DefaultArgs object at 0x7f45b247b520>
+Getting file stats from /pscratch/sd/y/yanggao/SuperBench/superbench_v1/nskt16000_1024/train/nskt_train.h5
+Number of samples per file: 1200
+Found data at path /pscratch/sd/y/yanggao/SuperBench/superbench_v1/nskt16000_1024/train. Number of examples: 1200. Image Shape: 1024 x 1024 x 3
+Getting file stats from /pscratch/sd/y/yanggao/SuperBench/superbench_v1/nskt16000_1024/valid_1/nskt_val_1.h5
+Number of samples per file: 200
+Found data at path /pscratch/sd/y/yanggao/SuperBench/superbench_v1/nskt16000_1024/valid_1. Number of examples: 200. Image Shape: 1024 x 1024 x 3
+Getting file stats from /pscratch/sd/y/yanggao/SuperBench/superbench_v1/nskt16000_1024/valid_2/nskt_val_2.h5
+Number of samples per file: 200
+Found data at path /pscratch/sd/y/yanggao/SuperBench/superbench_v1/nskt16000_1024/valid_2. Number of examples: 200. Image Shape: 1024 x 1024 x 3
+Getting file stats from /pscratch/sd/y/yanggao/SuperBench/superbench_v1/nskt16000_1024/test_1/nskt_test_1.h5
+Number of samples per file: 400
+Found data at path /pscratch/sd/y/yanggao/SuperBench/superbench_v1/nskt16000_1024/test_1. Number of examples: 400. Image Shape: 1024 x 1024 x 3
+Getting file stats from /pscratch/sd/y/yanggao/SuperBench/superbench_v1/nskt16000_1024/test_2/nskt_test_2.h5
+Number of samples per file: 400
+Found data at path /pscratch/sd/y/yanggao/SuperBench/superbench_v1/nskt16000_1024/test_2. Number of examples: 400. Image Shape: 1024 x 1024 x 3
+Loading settings from configs/training_config.toml...
+configs/training_config
+prepare tokenizer
+Loading dataset config from configs/dataset_config.toml
+prepare images.
+found directory images contains 1 image files
+neither caption file nor class tokens are found. use empty caption for images/512x512_example_img.png / キャプションファイルもclass tokenも見つかりませんでした。空のキャプションを使用します: images/512x512_example_img.png
+No caption file found for 1 images. Training will continue without captions for these images. If class token exists, it will be used. / 1枚の画像にキャプションファイルが見つかりませんでした。これらの画像についてはキャプションなしで学習を続行します。class tokenが存在する場合はそれを使います。
+images/512x512_example_img.png
+10 train images with repeating.
+0 reg images.
+no regularization images / 正則化画像が見つかりませんでした
+[Dataset 0]
+  batch_size: 2
+  resolution: (512, 512)
+  enable_bucket: True
+  network_multiplier: 1.0
+  min_bucket_reso: 320
+  max_bucket_reso: 1024
+  bucket_reso_steps: 64
+  bucket_no_upscale: False
+
+  [Subset 0 of Dataset 0]
+    image_dir: "images"
+    image_count: 1
+    num_repeats: 10
+    shuffle_caption: True
+    keep_tokens: 1
+    keep_tokens_separator: 
+    caption_dropout_rate: 0.0
+    caption_dropout_every_n_epoches: 0
+    caption_tag_dropout_rate: 0.0
+    caption_prefix: None
+    caption_suffix: None
+    color_aug: False
+    flip_aug: True
+    face_crop_aug_range: None
+    random_crop: False
+    token_warmup_min: 1,
+    token_warmup_step: 0,
+    is_reg: False
+    class_tokens: None
+    caption_extension: .txt
+
+
+[Dataset 0]
+loading image sizes.
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00, 30.86it/s]
+make buckets
+number of images (including repeats) / 各bucketの画像枚数（繰り返し回数を含む）
+bucket 0: resolution (512, 512), count: 10
+mean ar error (without repeats): 0.0
+preparing accelerator
+loading model for process 0/1
+load StableDiffusion checkpoint: sd-v1-5-pruned-noema-fp16.safetensors
+UNet2DConditionModel: 64, 8, 768, False, False
+loading u-net: <All keys matched successfully>
+loading vae: <All keys matched successfully>
+loading text encoder: <All keys matched successfully>
+import network module: networks.lora
+create LoRA network. base dim (rank): 16, alpha: 8
+neuron dropout: p=None, rank dropout: p=None, module dropout: p=None
+create LoRA for Text Encoder:
+create LoRA for Text Encoder: 72 modules.
+create LoRA for U-Net: 192 modules.
+enable LoRA for U-Net
+prepare optimizer, data loader etc.
+use AdamW optimizer | {}
+Key: loss_weights
+  Tensor shape: torch.Size([2])
+Key: input_ids
+  Tensor shape: torch.Size([2, 1, 77])
+Key: input_ids2
+  Type: <class 'NoneType'>
+Key: text_encoder_outputs1_list
+  Type: <class 'NoneType'>
+Key: text_encoder_outputs2_list
+  Type: <class 'NoneType'>
+Key: text_encoder_pool2_list
+  Type: <class 'NoneType'>
+Key: images
+  Tensor shape: torch.Size([2, 3, 512, 512])
+Key: latents
+  Type: <class 'NoneType'>
+Key: captions
+  Type: <class 'list'>
+Key: original_sizes_hw
+  Tensor shape: torch.Size([2, 2])
+Key: crop_top_lefts
+  Tensor shape: torch.Size([2, 2])
+Key: target_sizes_hw
+  Tensor shape: torch.Size([2, 2])
+Key: flippeds
+  Type: <class 'list'>
+Key: network_multipliers
+  Tensor shape: torch.Size([2])
+------------^one dataloader^-----------
+Key: images
+  Tensor shape: torch.Size([64, 3, 512, 512])
+------------^one dataloader^-----------
+override steps. steps for 10 epochs is / 指定エポックまでのステップ数: 1500
+running training / 学習開始
+  num train images * repeats / 学習画像の数×繰り返し回数: 10
+  num reg images / 正則化画像の数: 0
+  num batches per epoch / 1epochのバッチ数: 150
+  num epochs / epoch数: 10
+  batch size per device / バッチサイズ: 2
+  gradient accumulation steps / 勾配を合計するステップ数 = 1
+  total optimization steps / 学習ステップ数: 1500
+steps:   0%|          | 0/1500 [00:00<?, ?it/s]
+epoch 1/10
+Traceback (most recent call last):
+  File "/pscratch/sd/y/yanggao/sd-scripts/train_network.py", line 1140, in <module>
+    trainer.train(args)
+  File "/pscratch/sd/y/yanggao/sd-scripts/train_network.py", line 867, in train
+    latents = vae.encode(batch["images"].to(dtype=vae_dtype)).latent_dist.sample()
+  File "/global/homes/y/yanggao/.local/perlmutter/pytorch2.1.0-cu12/lib/python3.10/site-packages/diffusers/utils/accelerate_utils.py", line 46, in wrapper
+    return method(self, *args, **kwargs)
+  File "/global/homes/y/yanggao/.local/perlmutter/pytorch2.1.0-cu12/lib/python3.10/site-packages/diffusers/models/autoencoders/autoencoder_kl.py", line 260, in encode
+    h = self.encoder(x)
+  File "/global/common/software/nersc/pm-stable/sw/pytorch/2.1.0/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/global/common/software/nersc/pm-stable/sw/pytorch/2.1.0/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/global/homes/y/yanggao/.local/perlmutter/pytorch2.1.0-cu12/lib/python3.10/site-packages/diffusers/models/autoencoders/vae.py", line 172, in forward
+    sample = down_block(sample)
+  File "/global/common/software/nersc/pm-stable/sw/pytorch/2.1.0/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/global/common/software/nersc/pm-stable/sw/pytorch/2.1.0/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/global/homes/y/yanggao/.local/perlmutter/pytorch2.1.0-cu12/lib/python3.10/site-packages/diffusers/models/unet_2d_blocks.py", line 1323, in forward
+    hidden_states = resnet(hidden_states, temb=None, scale=scale)
+  File "/global/common/software/nersc/pm-stable/sw/pytorch/2.1.0/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/global/common/software/nersc/pm-stable/sw/pytorch/2.1.0/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/global/homes/y/yanggao/.local/perlmutter/pytorch2.1.0-cu12/lib/python3.10/site-packages/diffusers/models/resnet.py", line 258, in forward
+    output_tensor = (input_tensor + hidden_states) / self.output_scale_factor
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 8.00 GiB. GPU 0 has a total capacty of 39.39 GiB of which 1.23 GiB is free. Including non-PyTorch memory, this process has 38.15 GiB memory in use. Of the allocated memory 36.58 GiB is allocated by PyTorch, and 90.76 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+steps:   0%|          | 0/1500 [00:14<?, ?it/s]
+sd-v1-5-pruned-noema-fp16.safetensors already exists in the current directory.
