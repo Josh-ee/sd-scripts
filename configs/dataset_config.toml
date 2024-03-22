@@ -2,7 +2,8 @@
 
 [[datasets.subsets]]
 num_repeats = 10
-image_dir = "images"
+# image_dir = "images"
+image_dir = "/pscratch/sd/y/yanggao/nskt/figures/original_512"
 
 [general]
 resolution = 512
