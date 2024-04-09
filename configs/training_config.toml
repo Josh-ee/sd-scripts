@@ -1,25 +1,25 @@
 [additional_network_arguments]
 unet_lr = 0.0005
 text_encoder_lr = 0.0001
-network_dim = 16
-network_alpha = 8
+network_dim = 64  # Increased for potentially better learning capacity
+network_alpha = 16  # Increased to add more depth to the network
 network_module = "networks.lora"
-network_train_unet_only = true
+network_train_unet_only = false  # Train more components if possible
 
 [optimizer_arguments]
 learning_rate = 0.0005
 lr_scheduler = "cosine_with_restarts"
 lr_scheduler_num_cycles = 3
-lr_warmup_steps = 50
+lr_warmup_steps = 50 # May need to tune with experimentation
 optimizer_type = "AdamW"
 
 [training_arguments]
-max_train_epochs = 100
+max_train_epochs = 200
 save_every_n_epochs = 5
 save_last_n_epochs = 10
-train_batch_size = 32
+train_batch_size = 32  # Increase or Decrease according to available VRAM
 output_dir = "output"
 logging_dir = "logs"
 
 [model_arguments]
-pretrained_model_name_or_path = "sd-v1-5-pruned-noema-fp16.safetensors"
+pretrained_model_name_or_path = "v1-5-pruned.safetensors"
