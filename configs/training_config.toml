@@ -17,7 +17,7 @@ optimizer_type = "AdamW"
 max_train_epochs = 200
 save_every_n_epochs = 5
 save_last_n_epochs = 10
-train_batch_size = 32  # Increase or Decrease according to available VRAM
+train_batch_size = 4  # Increase or Decrease according to available VRAM
 output_dir = "output"
 logging_dir = "logs"
 
