@@ -20,6 +20,7 @@ save_last_n_epochs = 10
 train_batch_size = 4  # Increase or Decrease according to available VRAM
 output_dir = "output"
 logging_dir = "logs"
+sample_sampler = "ddim" # Default Sampling Method
 
 [model_arguments]
 pretrained_model_name_or_path = "v1-5-pruned.safetensors"
