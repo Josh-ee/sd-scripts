@@ -2,8 +2,8 @@
 
 [[datasets.subsets]]
 num_repeats = 10
-image_dir = "images"
-# image_dir = "/pscratch/sd/y/yanggao/capstone_dataset_w_cap/training_w_cap_data_interpolate/train"
+# image_dir = "images"
+image_dir = "/pscratch/sd/y/yanggao/capstone_dataset_w_cap/training_w_cap_data_interpolate/train"
 
 [general]
 resolution = 512
