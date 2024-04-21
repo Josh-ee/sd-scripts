@@ -5,7 +5,7 @@
 #SBATCH -J sd-script
 #SBATCH --mail-user=gaoyang29@berkeley.edu
 #SBATCH --mail-type=all
-#SBATCH -t 23:00:00
+#SBATCH -t 23:59:00
 #SBATCH -A m4633
 
 module load pytorch
